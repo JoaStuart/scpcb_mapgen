@@ -1,6 +1,6 @@
 import { IniReader } from "./ini_reader.js";
 
-const ROOM_TEMPLATES = new IniReader("./data/rooms.ini"),
+const ROOM_TEMPLATES = new IniReader("src/data/rooms.ini"),
   ROOM_SCALE = 8.0 / 2048.0,
   ZONEAMOUNT = 3,
   MAP_WIDTH = 18, // Normally loaded from `options.ini`|>options|>map size
