@@ -22,7 +22,7 @@ If you find any, open an issue. (Or just fix it yourself. Makes my job over here
 
 ## ToDo
 
-<small>Basically everything I am to lazy to do now...</small>
+<small>Basically everything I am too lazy to do now...</small>
 
 |      Function |     | Source             | Description                |
 | ------------: | --- | :----------------- | -------------------------- |
