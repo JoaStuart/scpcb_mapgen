@@ -1383,7 +1383,7 @@ class MapGen {
       else if (angle === 270) data.angle = angle - 180;
       else data.angle = r.angle;
 
-      child.style.backgroundImage = `url("data/${
+      child.style.backgroundImage = `url("src/data/${
         r.template.startsWith("checkpoint") ? "c2" : r.shape
       }.svg")`;
 
