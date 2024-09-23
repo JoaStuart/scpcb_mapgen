@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+    <line x1="25%" y1="100%" x2="25%" y2="0%" stroke="black" stroke-width="1%"></line>
+    <line x1="75%" y1="100%" x2="75%" y2="0%" stroke="black" stroke-width="1%"></line>
+</svg>

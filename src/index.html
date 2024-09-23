@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SCP CB - Seed Viewer</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="script.js"></script>
+  </head>
+  <body>
+    <div id="map" class="zones">
+      <div class="top">
+        <input
+          type="text"
+          name="seed"
+          id="seed"
+          placeholder="SEED"
+          value="dirtymetal"
+          autocomplete="off"
+          spellcheck="false"
+        />
+
+        <p>Select a room by clicking</p>
+
+        <div class="modes">
+          <div id="zones" class="selected">Zones</div>
+          <div id="no106">No 106</div>
+        </div>
+      </div>
+    </div>
+    <div id="info">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th id="rname"></th>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td id="rdesc"></td>
+        </tr>
+        <tr>
+          <td>Commonness</td>
+          <td id="rcomm"></td>
+        </tr>
+        <tr>
+          <td>Large</td>
+          <td id="rlarg"></td>
+        </tr>
+        <tr>
+          <td>NoDecals</td>
+          <td id="rdeca"></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
