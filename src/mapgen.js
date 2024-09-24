@@ -19,9 +19,11 @@ import {
 } from "./blitzbasic.js";
 
 import { str_to_shape, make_map, make_list, wrap_angle } from "./utils.js";
+import { FillRoom } from "./roomfill.js";
 
 class MapGen {
   rng;
+  forest;
   MAP_NAME;
   MAP_TEMP;
   MAP_ROOM_ID;
@@ -33,6 +35,7 @@ class MapGen {
   constructor(seed_name) {
     while (ROOMS.length > 0) ROOMS.pop();
 
+    this.forest = null;
     let seed = generateSeedNumber(seed_name);
     this.rng = new Blitz3DRandom(seed);
 
@@ -114,9 +117,7 @@ class MapGen {
       for (let rt of Object.keys(ROOM_TEMPLATES.data)) {
         if (rt === name) {
           r.template = rt;
-
-          // TODO FillRoom(r)
-
+          FillRoom(r, this.rng, this);
           return r;
         }
       }
@@ -148,9 +149,7 @@ class MapGen {
           temp += commonness;
           if (random_room > temp - commonness && random_room <= temp) {
             r.template = name;
-
-            // TODO FillRoom(r)
-
+            FillRoom(r, this.rng, this);
             return r;
           }
         }

@@ -24,10 +24,9 @@ If you find any, open an issue. (Or just fix it yourself. Makes my job over here
 
 <small>Basically everything I am too lazy to do now...</small>
 
-|      Function |     | Source             | Description                |
-| ------------: | --- | :----------------- | -------------------------- |
-|      FillRoom | @   | MapSystem.bb::2102 | Create items for each room |
-| GenForestGrid | @   | MapSystem.bb::877  | Generate forest            |
+- Redesign of page + responsiveness
+- Display items
+- Display SCPs
 
 ## Cool People
 
