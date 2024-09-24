@@ -16,7 +16,21 @@ const ROOM_TEMPLATES = new IniReader("src/data/rooms.ini"),
     3: "2C",
     4: "3",
     5: "4",
-  };
+  },
+  ZONECOLOR = {
+    0: "#ffffff",
+    1: "#00ffff",
+    2: "#f4cccc",
+    3: "#fff2cc",
+  },
+  GRIDSIZE = 10,
+  DEVIATION_CHANCE = 40,
+  BRANCH_CHANCE = 65,
+  BRANCH_MAX_LIFE = 4,
+  BRANCH_DIE_CHANCE = 18,
+  MAX_DEVIATION_DISTANCE = 3,
+  RETURN_CHANCE = 27,
+  CENTER = 5;
 
 export {
   ROOM_TEMPLATES,
@@ -30,4 +44,13 @@ export {
   ROOM3,
   ROOM4,
   SHAPES,
+  ZONECOLOR,
+  GRIDSIZE,
+  DEVIATION_CHANCE,
+  BRANCH_CHANCE,
+  BRANCH_MAX_LIFE,
+  BRANCH_DIE_CHANCE,
+  MAX_DEVIATION_DISTANCE,
+  RETURN_CHANCE,
+  CENTER,
 };

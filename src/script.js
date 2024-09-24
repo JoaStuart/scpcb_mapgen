@@ -1,41 +1,64 @@
 import { MapGen } from "./mapgen.js";
-import { ROOM_TEMPLATES } from "./constants.js";
+import { ROOMS } from "./blitzbasic.js";
+import { GRIDSIZE, ZONECOLOR } from "./constants.js";
 
-const grid = document.getElementById("map"),
-  seed = document.getElementById("seed"),
-  zones = document.getElementById("zones"),
-  no106 = document.getElementById("no106");
-
-var generator = null;
+const map = document.querySelector("#map canvas"),
+  seed = document.getElementById("seed");
+var c = null;
 
 function displaySeed() {
-  let start = performance.now();
-  generator = new MapGen(seed.value);
-  generator.create_map();
+  if (c === null) c = map.getContext("2d");
 
-  generator.visualize(grid);
-  let end = performance.now();
+  let generator = new MapGen(seed.value);
+  generator.create_map();
+  drawMap(generator);
+}
+
+function drawMap(generator) {
+  c.fillStyle = ZONECOLOR[0];
+  c.fillRect(0, 0, map.width, map.height);
+  let w = Math.floor(map.width / 18 / 2),
+    h = Math.floor(map.height / 18);
+
+  for (let i = 0; i < 3; i++) {
+    for (let r of ROOMS) {
+      let x = Math.floor(r.x / 8) * w + w,
+        y = Math.floor(r.z / 8) * h;
+
+      if (i === 0) {
+        if (r.zone === 0) continue;
+        c.fillStyle = "#777777";
+        c.fillRect(Math.floor(map.width / 2) - x + 1, y - 1, -w - 2, h + 2);
+      } else if (i === 1) {
+        c.fillStyle = ZONECOLOR[r.zone];
+        c.fillRect(Math.floor(map.width / 2) - x, y, -w, h);
+      } else if (i === 2) {
+        let o = 0;
+        for (let itm of r.items) {
+          if (itm.abb != undefined) {
+            c.fillStyle = "#000000";
+            c.fillText(
+              itm.abb,
+              Math.floor(map.width / 2) - x - w,
+              y + h / 2 + o
+            );
+            o += 10;
+          }
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i < GRIDSIZE; i++) {
+    for (let j = 0; j < GRIDSIZE; j++) {
+      if (generator.forest.grid[i * GRIDSIZE + j] > 0) {
+        c.fillStyle = "#777777";
+        c.fillRect(Math.floor(map.width / 2) + i * w, j * h, w, h);
+      }
+    }
+  }
 }
 
 seed.oninput = displaySeed;
-
-function btnUnselect(btns) {
-  btns.forEach((c) => {
-    c.classList?.remove("selected");
-  });
-}
-
-zones.onclick = (e) => {
-  no106.classList.remove("selected");
-  zones.classList.add("selected");
-  grid.classList.remove("no106");
-  grid.classList.add("zones");
-};
-no106.onclick = (e) => {
-  zones.classList.remove("selected");
-  no106.classList.add("selected");
-  grid.classList.remove("zones");
-  grid.classList.add("no106");
-};
 
 export { displaySeed };
