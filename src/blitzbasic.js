@@ -65,6 +65,7 @@ class Rooms {
   template;
   angle;
   adjacent;
+  items;
 
   /**
    * @param {number} zone
@@ -82,6 +83,7 @@ class Rooms {
     this.template = "";
     this.angle = 0;
     this.adjacent = [null, null, null, null];
+    this.items = [];
 
     ROOMS.push(this);
   }
