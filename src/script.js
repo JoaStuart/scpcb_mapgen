@@ -51,7 +51,7 @@ function drawMap(generator) {
 
   for (let i = 0; i < GRIDSIZE; i++) {
     for (let j = 0; j < GRIDSIZE; j++) {
-      if (generator.forest.grid[i * GRIDSIZE + j] > 0) {
+      if (generator.forest.grid[j * GRIDSIZE + i] > 0) {
         c.fillStyle = "#777777";
         c.fillRect(Math.floor(map.width / 2) + i * w, j * h, w, h);
       }

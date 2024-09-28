@@ -21,19 +21,36 @@ function placeItem(r, name, abb) {
  * @param {Rooms} r
  */
 function FillRoom(r, rng, parent) {
+  console.log(r.template);
   switch (r.template) {
     case "room860":
-      let forest = new Forest(rng);
-      parent.forest = forest;
+      if (parent.forest === null) parent.forest = new Forest(rng);
       placeItem(r, "Document SCP-860-1", "860-1");
       placeItem(r, "Document SCP-860", "860");
       break;
     case "lockroom":
       break;
     case "lockroom2":
-      rng.rand(2, 3);
-      rng.rand(15, 16);
-      rng.rand(15, 16);
+      for (let i = 0; i <= 5; i++) {
+        rng.rand(2, 3);
+        rng.rnd(-392, 520);
+        rng.rnd(0, 0.001);
+        rng.rnd(-392, 520);
+        rng.rnd(360);
+        rng.rnd(0.3, 0.6);
+        rng.rand(15, 16);
+        rng.rnd(-392, 520);
+        rng.rnd(0, 0.001);
+        rng.rnd(-392, 520);
+        rng.rnd(360);
+        rng.rnd(0.1, 0.6);
+        rng.rand(15, 16);
+        rng.rnd(-0.5, 0.5);
+        rng.rnd(0, 0.001);
+        rng.rnd(-0.5, 0.5);
+        rng.rnd(360);
+        rng.rnd(0.1, 0.6);
+      }
       break;
     case "gatea":
       break;
@@ -46,6 +63,7 @@ function FillRoom(r, rng, parent) {
       placeItem(r, "Radio Transceiver");
       break;
     case "room079":
+      rng.rnd(360);
       break;
     case "checkpoint1":
       break;
@@ -80,6 +98,7 @@ function FillRoom(r, rng, parent) {
       placeItem(r, "9V Battery");
       placeItem(r, "9V Battery");
       placeItem(r, "ReVision Eyedrops");
+      rng.rnd(360);
       break;
     case "room2poffices":
       placeItem(r, "Mysterious Note", "MN");
@@ -93,7 +112,7 @@ function FillRoom(r, rng, parent) {
       rng.rand(360);
       rng.rand(360);
       placeItem(r, "Dr. L's Burnt Note", "LBN");
-      placeItem(r, "Dr. L's Burnt Note");
+      placeItem(r, "Dr L's Burnt Note");
       placeItem(r, "The Modular Site Project", "MSP");
       break;
     case "room2elevator":
@@ -134,6 +153,7 @@ function FillRoom(r, rng, parent) {
       break;
     case "room3storage":
       rng.rand(3);
+      rng.rnd(360);
       placeItem(r, "Black Severed Hand");
       placeItem(r, "Night Vision Goggles");
       break;
@@ -147,6 +167,7 @@ function FillRoom(r, rng, parent) {
     case "room012":
       placeItem(r, "Document SCP-012", "012");
       placeItem(r, "Severed Hand");
+      rng.rnd(360);
       break;
     case "tunnel2":
       break;
@@ -223,6 +244,8 @@ function FillRoom(r, rng, parent) {
       for (let i = 0; i <= 14; i++) {
         rng.rand(15, 16);
         rng.rand(360);
+        if (i > 10) rng.rnd(0.2, 0.25);
+        else rng.rnd(0.1, 0.17);
       }
       break;
     case "room205":
@@ -300,9 +323,9 @@ function FillRoom(r, rng, parent) {
                 case 6:
                   tempstr2 = "096";
                   break;
-                case 6:
-                  tempstr2 = "966";
-                  break;
+                // case 6:
+                //   tempstr2 = "966";
+                //   break;
               }
               tempstr += tempstr2;
             } else if (chance < 45) {
@@ -328,6 +351,7 @@ function FillRoom(r, rng, parent) {
                   tempstr = "Origami";
               }
             }
+            rng.rnd(-96.0, 96.0);
             placeItem(r, tempstr, tempstr2.length == 0 ? undefined : tempstr2);
           }
         }
@@ -344,6 +368,10 @@ function FillRoom(r, rng, parent) {
       break;
     case "pocketdimension":
       placeItem(r, "Burnt Note", "BN");
+      rng.rnd(0.8, 0.8);
+      for (let i = 1; i <= 8; i++) {
+        if (i < 6) rng.rnd(0.5, 0.5);
+      }
       break;
     case "room3z3":
       break;
@@ -356,9 +384,10 @@ function FillRoom(r, rng, parent) {
       placeItem(r, "Night Vision Goggles");
       rng.rand(245);
       break;
+    case "room2gw_b":
+      rng.rnd(360);
     case "room2gw":
       rng.rand(1, 2);
-    case "room2gw_b":
       break;
     case "room3gw":
       break;
@@ -444,6 +473,7 @@ class Forest {
   gen_path() {
     this.grid[this.door1_pos] = 3;
     this.grid[(GRIDSIZE - 1) * GRIDSIZE + this.door2_pos] = 3;
+    return;
 
     let pathx = this.door2_pos,
       pathy = 1,
@@ -535,11 +565,11 @@ class Forest {
       new_x = 0;
       if (this.chance(BRANCH_CHANCE)) {
         branch_type = -1;
-        let cobble_chance = 0.2;
-        if (this.chance(cobble_chance)) {
-          // TODO WHAT DA F*** IS COBBLE_CHANCE
-          branch_type = -2;
-        }
+        // if (this.chance(cobble_chance)) {
+        //   // TODO WHAT DA F*** IS COBBLE_CHANCE
+        //   branch_type = -2;
+        // }
+
         // ORIG COMMENT ;create a branch at this spot
         //              ;determine if on left or on right
         branch_pos = 2 * this.rng.rand(0, 1);

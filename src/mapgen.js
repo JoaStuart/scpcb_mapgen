@@ -958,6 +958,8 @@ class MapGen {
 
     // TRANSLATED COMMENT ;----------------------- creating map --------------------------------
 
+    this.rng.rand();
+
     temp = 0;
     let spacing = 8.0,
       r = null;
@@ -974,9 +976,23 @@ class MapGen {
       for (let x = 1; x <= MAP_WIDTH - 2; x++) {
         if (this.MAP_TEMP[x][y] === 255) {
           if (y > MAP_HEIGHT / 2) {
-            r = this.#_create_room(zone, ROOM2, x * 8, 0, y * 8, "checkpoint1");
+            r = this.#_create_room(
+              zone,
+              ROOM2,
+              x * spacing,
+              0,
+              y * spacing,
+              "checkpoint1"
+            );
           } else {
-            r = this.#_create_room(zone, ROOM2, x * 8, 0, y * 8, "checkpoint2");
+            r = this.#_create_room(
+              zone,
+              ROOM2,
+              x * spacing,
+              0,
+              y * spacing,
+              "checkpoint2"
+            );
           }
         } else if (this.MAP_TEMP[x][y] > 0) {
           let temp =
@@ -1002,9 +1018,9 @@ class MapGen {
               r = this.#_create_room(
                 zone,
                 ROOM1,
-                x * 8,
+                x * spacing,
                 0,
-                y * 8,
+                y * spacing,
                 this.MAP_NAME[x][y]
               );
               if (this.MAP_TEMP[x][y + 1] !== 0) {
@@ -1032,9 +1048,9 @@ class MapGen {
                 r = this.#_create_room(
                   zone,
                   ROOM2,
-                  x * 8,
+                  x * spacing,
                   0,
-                  y * 8,
+                  y * spacing,
                   this.MAP_NAME[x][y]
                 );
                 if (this.rng.rand(2) === 1) {
@@ -1059,9 +1075,9 @@ class MapGen {
                 r = this.#_create_room(
                   zone,
                   ROOM2,
-                  x * 8,
+                  x * spacing,
                   0,
-                  y * 8,
+                  y * spacing,
                   this.MAP_NAME[x][y]
                 );
                 if (this.rng.rand(2) === 1) {
@@ -1086,9 +1102,9 @@ class MapGen {
                   r = this.#_create_room(
                     zone,
                     ROOM2C,
-                    x * 8,
+                    x * spacing,
                     0,
-                    y * 8,
+                    y * spacing,
                     this.MAP_NAME[x][y]
                   );
                   r.angle = 180;
@@ -1099,9 +1115,9 @@ class MapGen {
                   r = this.#_create_room(
                     zone,
                     ROOM2C,
-                    x * 8,
+                    x * spacing,
                     0,
-                    y * 8,
+                    y * spacing,
                     this.MAP_NAME[x][y]
                   );
                   r.angle = 90;
@@ -1112,9 +1128,9 @@ class MapGen {
                   r = this.#_create_room(
                     zone,
                     ROOM2C,
-                    x * 8,
+                    x * spacing,
                     0,
-                    y * 8,
+                    y * spacing,
                     this.MAP_NAME[x][y]
                   );
                   r.angle = 270;
@@ -1122,9 +1138,9 @@ class MapGen {
                   r = this.#_create_room(
                     zone,
                     ROOM2C,
-                    x * 8,
+                    x * spacing,
                     0,
-                    y * 8,
+                    y * spacing,
                     this.MAP_NAME[x][y]
                   );
                 }
@@ -1146,9 +1162,9 @@ class MapGen {
               r = this.#_create_room(
                 zone,
                 ROOM3,
-                x * 8,
+                x * spacing,
                 0,
-                y * 8,
+                y * spacing,
                 this.MAP_NAME[x][y]
               );
               if (this.MAP_TEMP[x][y - 1] === 0) {
@@ -1174,9 +1190,9 @@ class MapGen {
               r = this.#_create_room(
                 zone,
                 ROOM4,
-                x * 8,
+                x * spacing,
                 0,
-                y * 8,
+                y * spacing,
                 this.MAP_NAME[x][y]
               );
               this.MAP_ROOM_ID[ROOM4] += 1;
@@ -1185,20 +1201,27 @@ class MapGen {
       }
     }
 
-    r = this.#_create_room(0, ROOM1, (MAP_WIDTH - 1) * 8, 500, 8, "gatea");
+    r = this.#_create_room(
+      0,
+      ROOM1,
+      (MAP_WIDTH - 1) * spacing,
+      500,
+      spacing,
+      "gatea"
+    );
     this.MAP_ROOM_ID[ROOM1]++;
 
     r = this.#_create_room(
       0,
       ROOM1,
-      (MAP_WIDTH - 1) * 8,
+      (MAP_WIDTH - 1) * spacing,
       0,
-      (MAP_HEIGHT - 1) * 8,
+      (MAP_HEIGHT - 1) * spacing,
       "pocketdimension"
     );
     this.MAP_ROOM_ID[ROOM1]++;
 
-    r = this.#_create_room(0, ROOM1, 8, 800, 0, "dimension1499");
+    r = this.#_create_room(0, ROOM1, spacing, 800, 0, "dimension1499");
     this.MAP_ROOM_ID[ROOM1]++;
 
     for (let y = 0; y <= MAP_HEIGHT; y++) {
@@ -1230,7 +1253,10 @@ class MapGen {
 
           for (let r of ROOMS) {
             r.angle = wrap_angle(r.angle);
-            if (Math.floor(r.x / 8.0) === x && Math.floor(r.z / 8.0) === y) {
+            if (
+              Math.floor(r.x / spacing) === x &&
+              Math.floor(r.z / spacing) === y
+            ) {
               let shouldSpawnDoor = false;
               switch (
                 str_to_shape((ROOM_TEMPLATES[r.template] ?? {})["shape"] ?? "0")
@@ -1319,15 +1345,15 @@ class MapGen {
       for (let r2 of ROOMS) {
         if (r !== r2) {
           if (r2.z === r.z) {
-            if (r2.x === r.x + 8.0) {
+            if (r2.x === r.x + spacing) {
               r.adjacent[0] = r2;
-            } else if (r2.x === r.x - 8.0) {
+            } else if (r2.x === r.x - spacing) {
               r.adjacent[2] = r2;
             }
           } else if (r2.x === r.x) {
-            if (r2.z === r.z - 8.0) {
+            if (r2.z === r.z - spacing) {
               r.adjacent[1] = r2;
-            } else if (r2.z === r.z + 8.0) {
+            } else if (r2.z === r.z + spacing) {
               r.adjacent[3] = r2;
             }
           }
