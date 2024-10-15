@@ -958,6 +958,11 @@ class MapGen {
 
     // TRANSLATED COMMENT ;----------------------- creating map --------------------------------
 
+    /*
+     * The following `rand()` call should not be here,
+     * but it makes it seem "more correct"...
+     * We will see when the forrest generation is finished
+     */
     this.rng.rand();
 
     temp = 0;

@@ -259,6 +259,7 @@ function FillRoom(r, rng, parent) {
       placeItem(r, "Level 3 Key Card");
       placeItem(r, "Night Vision Goggles");
       rng.rand(360);
+      break;
     case "room2tesla":
     case "room2tesla_lcz":
     case "room2tesla_hcz":
@@ -301,8 +302,7 @@ function FillRoom(r, rng, parent) {
             let tempstr = "9V Battery",
               tempstr2 = "",
               chance = rng.rand(-10, 100);
-            if (chance < 0) {
-            } else if (chance < 40) {
+            if (chance < 40) {
               tempstr = "Document SCP-";
               switch (rng.rand(1, 6)) {
                 case 1:
@@ -333,7 +333,7 @@ function FillRoom(r, rng, parent) {
             } else if (chance < 50) {
               tempstr = "First Aid Kit";
             } else if (chance < 60) {
-              tempstr = "9V Battery";
+              // tempstr = "9V Battery";
             } else if (chance < 70) {
               tempstr = "S-NAV 300 Navigator";
             } else if (chance < 85) {
@@ -347,8 +347,10 @@ function FillRoom(r, rng, parent) {
                   break;
                 case 2:
                   tempstr = "Mastercard";
+                  break;
                 case 3:
                   tempstr = "Origami";
+                  break;
               }
             }
             rng.rnd(-96.0, 96.0);
