@@ -28,16 +28,32 @@ class Blitz3DRandom {
   }
 
   /**
+   * Directly translated from disassembly of
+   * `SCP - Containment Breach.exe`
+   * at offset `0x1003bbe0`
    *
    * @param {number} start
    * @param {number} end (Optional)
    * @returns {number}
    */
   rnd(start, end = 0) {
-    return this.#_rnd() * (end - start) + start;
+    this.seed = Math.trunc(
+      (this.seed % 0xadc8) * 0xbc8f + Math.trunc(this.seed / 0xadc8) * -0xd47
+    );
+
+    if (this.seed < 0) {
+      this.seed += 0x7fffffff;
+    }
+
+    return (
+      (end - start) * ((this.seed & 0xffff) * 1.525879e-5 + 7.629395e-6) + start
+    );
   }
 
   /**
+   * Directly translated from disassembly of
+   * `SCP - Containment Breach.exe`
+   * at offset `0x1003bc70`
    *
    * @param {number} start
    * @param {number} end
@@ -50,7 +66,23 @@ class Blitz3DRandom {
       end = t;
     }
 
-    return Math.floor(this.#_rnd() * (end - start + 1)) + start;
+    this.seed = Math.trunc(
+      (this.seed % 0xadc8) * 0xbc8f + Math.trunc(this.seed / 0xadc8) * -0xd47
+    );
+
+    if (this.seed < 0) {
+      this.seed += 0x7fffffff;
+    }
+
+    let f_reg = this.seed & 0xffff;
+
+    f_reg *= 1.525879e-5;
+    f_reg += 7.629395e-6;
+    f_reg *= end - start + 1;
+
+    return Math.trunc(f_reg) + start;
+
+    //return Math.floor(this.#_rnd() * (end - start + 1)) + start;
   }
 }
 
