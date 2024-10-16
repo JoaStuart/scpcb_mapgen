@@ -13,21 +13,6 @@ class Blitz3DRandom {
   }
 
   /**
-   * @returns {number}
-   */
-  #_rnd() {
-    const RND_A = 48271,
-      RND_M = 2147483647,
-      RND_Q = 44488,
-      RND_R = 3399;
-
-    this.seed =
-      RND_A * (this.seed % RND_Q) - RND_R * Math.floor(this.seed / RND_Q);
-    if (this.seed < 0) this.seed += RND_M;
-    return (this.seed & 65535) / 65536.0 + 0.5 / 65536.0;
-  }
-
-  /**
    * Directly translated from disassembly of
    * `SCP - Containment Breach.exe`
    * at offset `0x1003bbe0`
